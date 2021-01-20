@@ -1,0 +1,40 @@
+#todaysTotalCard {
+  text-align: center;
+  margin-top: 5%;
+}
+
+#todaysCategoryContainer {
+  text-align: center;
+  padding: 0;
+}
+
+#totalsCategoryContainer {
+  text-align: center;
+}
+
+#totalCasesCard {
+  text-align: center;
+  margin-top: 5%;
+}
+
+.user-select-none {
+  border: black;
+  border-width: 0px;
+}
+
+#newCasesGraph.container {
+  padding: 0;
+}
+
+#totalCasesGraph.container {
+  padding: 0;
+}
+
+.shadow-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#newCasesGraph {
+  border: black;
+  border-width: 1;
+}
