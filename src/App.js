@@ -73,11 +73,11 @@ class App extends React.Component {
               <MDBNavbarToggler onClick={ this.onClick } />
               <MDBCollapse isOpen = { this.state.collapse } navbar>
                 <MDBNavbarNav right>
-                  <MDBNavItem>
-                    <MDBNavLink to="https://twitter.com/ONTSchoolCovid?ref_src=twsrc%5Etfw"><MDBIcon fab icon="twitter" /></MDBNavLink>
+                  <MDBNavItem className="link">
+                    <a href="https://twitter.com/ONTSchoolCovid?ref_src=twsrc%5Etfw"><MDBIcon fab icon="twitter" /></a>
                   </MDBNavItem>
-                  <MDBNavItem class="github-link">
-                    <MDBNavLink to="https://github.com/jayshah1232"><MDBIcon fab icon="github" /></MDBNavLink>
+                  <MDBNavItem className="link">
+                    <a href="https://github.com/jayshah1232"><MDBIcon fab icon="github" /></a>
                   </MDBNavItem>
                 </MDBNavbarNav>
               </MDBCollapse>
