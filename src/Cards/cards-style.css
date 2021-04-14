@@ -1,7 +1,71 @@
-.card-body {
-    padding-left: 50px;
-    padding-right: 50px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    #header-card {
+        margin-bottom: 30px;
+    }
+} 
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {} 
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {} 
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {} 
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}
+
+#header-card {
+    background-color: rgb(42,49,61);
+    text-align: center;
+    color: white;
+}
+
+.card {
+    margin: 0.5rem;
+}
+
+.chart-title {
+    text-align: center;
+    font-size: 1rem;
+}
+
+#regular-card {
+    background-color: rgb(42,49,61);
+    text-align: center;
+    color: white;
+}
+
+#card-text {
+    font-size: 2rem;
+    text-align: center;
+    color: rgb(255, 255, 255);
+}
+
+#site-body {
+    background-color: rgb(24,31,45);
+}
+
+#MDBNav {
+    background-color: rgb(42,49,61);
+}
+
+.navbar-brand {
+    color: white;
+}
+
+.fa-github {
+    color: lightgray;
+}
+
+.fa-github:hover {
+    color: lightslategray;
+}
+
+#charts-heading {
+    color: white;
 }
 
 .container-fluid {

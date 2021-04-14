@@ -1,3 +1,4 @@
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardGroup } from 'mdbreact'
 import React, { useState, useEffect } from 'react'
 import Card from './CardUI'
 
@@ -24,12 +25,13 @@ function Cards(props) {
         console.log("entering useEffect")
         fetch(`https://covid-schools-data-api.herokuapp.com/`)
         .then((response) => {
-            console.log(response); // Logs the response
+            // console.log(response); // Logs the response
             return response.json();
         })
         .then((data) => {
             setData(data);
             setLoading(false);
+            // console.log(data)
         });
     }, []);
     
@@ -57,33 +59,72 @@ function Cards(props) {
         currentSchoolsWCases = currentData['current_schools_w_cases']
 
         return(
-            <div id="reactCardsComponent">
-                <div className="heading-container">
-                    <Card className="heading-card" id="todaysTotalCard" title="Today's New School Cases" cases={totalNewSchool}/>
-                </div>
+            <div id="react-cards-component">
+                <MDBCard id="header-card">
+                    <MDBCardBody>
+                        <MDBCardTitle>
+                            Today's New School Cases
+                        </MDBCardTitle>
+                        <MDBCardText id="card-text">
+                            {totalNewSchool}
+                        </MDBCardText>
+                    </MDBCardBody>
+                </MDBCard>
 
-            
-                <div className="container-fluid d-flex justify-content-center" id="todayContainer">
-                    <div className="card-group">
-                        <Card title="Today's New Student Cases" cases={totalNewStudents}/>
-                        <Card title="Today's New Staff Cases" cases={totalNewStaff}/>
-                        <Card title="Today's New Unspecified Cases" cases={totalNewUnspec}/>
-                    </div>
-                </div>
+                <MDBCardGroup>
+                    <Card title="New Student Cases" cases={totalNewStudents}/>
+                    <Card title="New Staff Cases" cases={totalNewStaff}/>
+                    <Card title="New Unspecified Cases" cases={totalNewUnspec}/>
+                </MDBCardGroup>
 
-                <div className="heading-container">
-                    <Card className="heading-card" id="todaysCasesCard" title="Cumulative School Cases" cases={currentSchoolCases}/>
-                </div>
+                <br/>
+                <br/>
+                <br/>
 
-            
-                <div className="container-fluid d-flex justify-content-center">
-                    <div className="card-group">
-                        <Card title="Cumulative Student Cases" cases={currentStudentCases}/>
-                        <Card title="Cumulative Staff Cases" cases={currentStaffCases}/>
-                        <Card title="Cumulative Unspecified Cases" cases={currentUnspecCases}/>
-                    </div>
-                </div>
+                <MDBCard id="header-card">
+                    <MDBCardBody>
+                        <MDBCardTitle>
+                            Cumulative School Cases
+                        </MDBCardTitle>
+                        <MDBCardText id="card-text">
+                            {currentSchoolCases}
+                        </MDBCardText>
+                    </MDBCardBody>
+                </MDBCard>
+
+                <MDBCardGroup>
+                    <Card title="Student Cases" cases={currentStudentCases}/>
+                    <Card title="Staff Cases" cases={currentStaffCases}/>
+                    <Card title="Unspecified Cases" cases={currentUnspecCases}/>
+                </MDBCardGroup>
             </div>
+            // <div id="reactCardsComponent">
+            //     <div className="heading-container">
+            //         <Card className="heading-card" id="todaysTotalCard" title="Today's New School Cases" cases={totalNewSchool}/>
+            //     </div>
+
+            
+            //     <div className="container-fluid d-flex justify-content-center" id="todayContainer">
+            //         <div className="card-group">
+            //             <Card title="Today's New Student Cases" cases={totalNewStudents}/>
+            //             <Card title="Today's New Staff Cases" cases={totalNewStaff}/>
+            //             <Card title="Today's New Unspecified Cases" cases={totalNewUnspec}/>
+            //         </div>
+            //     </div>
+
+            //     <div className="heading-container">
+            //         <Card className="heading-card" id="todaysCasesCard" title="Cumulative School Cases" cases={currentSchoolCases}/>
+            //     </div>
+
+            
+            //     <div className="container-fluid d-flex justify-content-center">
+            //         <div className="card-group">
+            //             <Card title="Cumulative Student Cases" cases={currentStudentCases}/>
+            //             <Card title="Cumulative Staff Cases" cases={currentStaffCases}/>
+            //             <Card title="Cumulative Unspecified Cases" cases={currentUnspecCases}/>
+            //         </div>
+            //     </div>
+            // </div>
         )
     }
 }
