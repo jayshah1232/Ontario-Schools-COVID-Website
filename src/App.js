@@ -27,7 +27,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://data.ontario.ca/api/3/action/datastore_search?resource_id=7fbdbb48-d074-45d9-93cb-f7de58950418&limit=500')
+    fetch("https://data.ontario.ca/api/3/action/datastore_search?resource_id=7fbdbb48-d074-45d9-93cb-f7de58950418&limit=500")
     .then(res => res.json())
     .then(json => this.setState({ data: json.result.records, isLoading: false }))
   }

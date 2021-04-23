@@ -3,6 +3,7 @@
   "name": "covid-react-app",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://data.ontario.ca/api/3/action/datastore_search?resource_id=7fbdbb48-d074-45d9-93cb-f7de58950418&limit=500",
   "dependencies": {
     "@nivo/bar": "^0.67.0",
     "@nivo/core": "^0.67.0",
