@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import { Container } from 'react-bootstrap';
 import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBIcon, MDBCard, MDBCardBody, MDBCardText } from 'mdbreact';
 import { BrowserRouter as Router } from 'react-router-dom';
-import $ from "jquery"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, Label } from "recharts";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cards from './Cards/Cards';
@@ -15,7 +14,8 @@ class App extends React.Component {
       super(props);
       this.state = {
           collapse: false,
-          data: []
+          data: [],
+          isLoading: true
       };
       this.onClick = this.onClick.bind(this);
   }
@@ -29,7 +29,7 @@ class App extends React.Component {
   componentDidMount() {
     fetch('https://data.ontario.ca/api/3/action/datastore_search?resource_id=7fbdbb48-d074-45d9-93cb-f7de58950418&limit=500')
     .then(res => res.json())
-    .then(json => this.setState({ data: json.result.records }))
+    .then(json => this.setState({ data: json.result.records, isLoading: false }))
   }
 
 
@@ -61,6 +61,118 @@ class App extends React.Component {
     }
 
     newCasesArray.forEach(iterate);
+    
+    let barGraph = " ";
+
+    if(this.state.isLoading) {
+      console.log("loading")
+      barGraph = 
+      <div className="loader">
+        <div className="spinner-border m-5"></div>
+      </div>;
+    }
+    else {
+      console.log("finished loading")
+      barGraph = 
+      <div>
+        <MDBContainer>
+          <div className="w-auto p-3">
+            <MDBCard>
+              <MDBCardBody>
+                <h3 className="chart-title">New School-Related Cases Over Time</h3>
+                <ResponsiveContainer width="99%" height={400}>
+                  <BarChart
+                    width={500}
+                    aspect={3}
+                    data={this.state.data}
+                    margin={{
+                      top: 20,
+                      right: 30,
+                      left: 20,
+                      bottom: 5
+                    }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="reported_date"
+                      tickFormatter = {(date) => moment(date).format('D/M/YYYY')}
+                      interval="{3}"
+                    >
+                      <Label position="bottom" value="Date" offset={0}/>
+                    </XAxis>
+                    <YAxis>
+                      <Label value="Number of Cases" angle="90" position="insideLeft"/>
+                    </YAxis>
+                    <Tooltip labelFormatter={t => moment(t).format('D/M/YYYY')}/>
+                    <Legend align="left"/>
+                    <Bar
+                      dataKey="new_school_related_student_cases"
+                      name="Student Cases"
+                      stackId="a"
+                      fill="#8884d8"
+                    />
+                    <Bar
+                      dataKey="new_school_related_staff_cases"
+                      name="Staff Cases"
+                      stackId="a"
+                      fill="#FF0000"
+                    />
+                    <Bar
+                      dataKey="new_school_related_unspecified_cases"
+                      name="Unspecified Cases"
+                      stackId="a"
+                      fill="#82ca9d"
+                    />
+                  </BarChart>
+                </ResponsiveContainer>
+              </MDBCardBody>
+            </MDBCard>
+          </div>
+        </MDBContainer>
+        <MDBContainer>
+          <div className="w-auto p-3">
+            <MDBCard>
+              <MDBCardBody>
+                <h3 className="chart-title">Cumulative School-Related Cases Over Time</h3>
+                <ResponsiveContainer width="99%" height={400}>
+                  <LineChart
+                    width={500}
+                    aspect={3}
+                    data={this.state.data}
+                    margin={{
+                      top: 20,
+                      right: 30,
+                      left: 20,
+                      bottom: 5
+                    }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="reported_date"
+                      tickFormatter = {(date) => moment(date).format('D/M/YYYY')}
+                      interval="{3}"
+                    >
+                      <Label position="bottom" value="Date" offset={0}/>
+                    </XAxis>
+                    <YAxis>
+                      <Label value="Number of Cases" angle="90" position="insideLeft"/>
+                    </YAxis>
+                    <Tooltip labelFormatter={t => moment(t).format('D/M/YYYY')}/>
+                    <Legend align="left"/>
+                    <Line type="monotone" dataKey="cumulative_school_related_cases" name="School Cases" stroke="#FF0000" />
+                    <Line type="monotone" dataKey="cumulative_school_related_student_cases" name="Student Cases" stroke="#8884d8" />
+                    <Line type="monotone" dataKey="cumulative_school_related_staff_cases" name="Staff Cases" stroke="#800181" />
+                    <Line type="monotone" dataKey="cumulative_school_related_unspecified_cases" name="Unspecified Cases" stroke="#82ca9d" />
+                  </LineChart>
+                </ResponsiveContainer>
+              </MDBCardBody>
+            </MDBCard>
+          </div>
+        </MDBContainer>
+      </div>;
+    }
+
+    console.log(barGraph);
 
     return(
       <div>
@@ -98,100 +210,9 @@ class App extends React.Component {
 
           <h1 id="charts-heading">Visualized Data</h1>
 
-          <MDBContainer>
-            <div className="w-auto p-3">
-              <MDBCard>
-                <MDBCardBody>
-                  <h3 className="chart-title">New School-Related Cases Over Time</h3>
-                  <ResponsiveContainer width="99%" height={400}>
-                    <BarChart
-                      width={500}
-                      aspect={3}
-                      data={this.state.data}
-                      margin={{
-                        top: 20,
-                        right: 30,
-                        left: 20,
-                        bottom: 5
-                      }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis
-                        dataKey="reported_date"
-                        tickFormatter = {(date) => moment(date).format('D/M/YYYY')}
-                        interval="{3}"
-                      >
-                        <Label position="bottom" value="Date" offset={0}/>
-                      </XAxis>
-                      <YAxis>
-                        <Label value="Number of Cases" angle="90" position="insideLeft"/>
-                      </YAxis>
-                      <Tooltip labelFormatter={t => moment(t).format('D/M/YYYY')}/>
-                      <Legend align="left"/>
-                      <Bar
-                        dataKey="new_school_related_student_cases"
-                        name="Student Cases"
-                        stackId="a"
-                        fill="#8884d8"
-                      />
-                      <Bar
-                        dataKey="new_school_related_staff_cases"
-                        name="Staff Cases"
-                        stackId="a"
-                        fill="#FF0000"
-                      />
-                      <Bar
-                        dataKey="new_school_related_unspecified_cases"
-                        name="Unspecified Cases"
-                        stackId="a"
-                        fill="#82ca9d"
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </MDBCardBody>
-              </MDBCard>
-            </div>
-          </MDBContainer>
-          <MDBContainer>
-            <div className="w-auto p-3">
-              <MDBCard>
-                <MDBCardBody>
-                  <h3 className="chart-title">Cumulative School-Related Cases Over Time</h3>
-                  <ResponsiveContainer width="99%" height={400}>
-                    <LineChart
-                      width={500}
-                      aspect={3}
-                      data={this.state.data}
-                      margin={{
-                        top: 20,
-                        right: 30,
-                        left: 20,
-                        bottom: 5
-                      }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis
-                        dataKey="reported_date"
-                        tickFormatter = {(date) => moment(date).format('D/M/YYYY')}
-                        interval="{3}"
-                      >
-                        <Label position="bottom" value="Date" offset={0}/>
-                      </XAxis>
-                      <YAxis>
-                        <Label value="Number of Cases" angle="90" position="insideLeft"/>
-                      </YAxis>
-                      <Tooltip labelFormatter={t => moment(t).format('D/M/YYYY')}/>
-                      <Legend align="left"/>
-                      <Line type="monotone" dataKey="cumulative_school_related_cases" name="School Cases" stroke="#FF0000" />
-                      <Line type="monotone" dataKey="cumulative_school_related_student_cases" name="Student Cases" stroke="#8884d8" />
-                      <Line type="monotone" dataKey="cumulative_school_related_staff_cases" name="Staff Cases" stroke="#800181" />
-                      <Line type="monotone" dataKey="cumulative_school_related_unspecified_cases" name="Unspecified Cases" stroke="#82ca9d" />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </MDBCardBody>
-              </MDBCard>
-            </div>
-          </MDBContainer>
+          <div>
+            {barGraph};
+          </div>
         </div>
       </div>
     );

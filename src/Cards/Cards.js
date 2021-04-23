@@ -21,29 +21,25 @@ function Cards(props) {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    
     useEffect(()=>{
-        console.log("entering useEffect")
         fetch(`https://covid-schools-data-api.herokuapp.com/`)
         .then((response) => {
-            // console.log(response); // Logs the response
             return response.json();
         })
         .then((data) => {
             setData(data);
             setLoading(false);
-            // console.log(data)
         });
     }, []);
     
     if(loading) {
-        console.log("loading")
         return (
             <div className="loader">
                 <div className="spinner-border m-5"></div>
             </div>
         );
     } else {
-        console.log("loading complete")
         currentData = data;
         currentData = data[data.length - 1]        
         totalNewSchool = currentData['new_total_school_related_cases']
@@ -55,8 +51,8 @@ function Cards(props) {
         currentStaffCases = currentData['cumulative_school_related_staff_cases']
         currentStudentCases = currentData['cumulative_school_related_student_cases']
         currentUnspecCases = currentData['cumulative_school_related_unspecified_cases']
-        currentSchoolsClosed = currentData['current_schools_closed']
-        currentSchoolsWCases = currentData['current_schools_w_cases']
+        // currentSchoolsClosed = currentData['current_schools_closed']
+        // currentSchoolsWCases = currentData['current_schools_w_cases']
 
         return(
             <div id="react-cards-component">

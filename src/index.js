@@ -8,8 +8,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './App.css'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import Cards from './Cards/Cards'
-import ActiveTable from './ActiveTable/ActiveTable'
 
 ReactDOM.render(
   <React.StrictMode>
