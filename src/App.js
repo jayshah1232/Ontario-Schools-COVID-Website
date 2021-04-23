@@ -27,9 +27,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("https://data.ontario.ca/api/3/action/datastore_search?resource_id=7fbdbb48-d074-45d9-93cb-f7de58950418&limit=500")
+    fetch("https://covid-schools-data-api.herokuapp.com/")
     .then(res => res.json())
-    .then(json => this.setState({ data: json.result.records, isLoading: false }))
+    .then(json => this.setState({ data: json, isLoading: false }))
   }
 
 
@@ -67,9 +67,11 @@ class App extends React.Component {
     if(this.state.isLoading) {
       console.log("loading")
       barGraph = 
-      <div className="loader">
-        <div className="spinner-border m-5"></div>
-      </div>;
+      <div className="loading">
+        <div className="loadingio-spinner-bars-k2zs6r7rbar"><div className="ldio-7jcdny9bopo">
+        <div></div><div></div><div></div><div></div>
+        </div></div>
+      </div>
     }
     else {
       console.log("finished loading")

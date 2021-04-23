@@ -35,9 +35,10 @@ function Cards(props) {
     
     if(loading) {
         return (
-            <div className="loader">
-                <div className="spinner-border m-5"></div>
+            <div className="loading">
+                <img src="Blocks-1s-200px.svg" />
             </div>
+            
         );
     } else {
         currentData = data;
