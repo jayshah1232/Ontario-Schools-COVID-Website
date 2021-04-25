@@ -23,12 +23,12 @@ function Cards(props) {
     const [loading, setLoading] = useState(true);
     
     useEffect(()=>{
-        fetch(`https://covid-schools-data-api.herokuapp.com/`)
+        fetch('https://nameless-fortress-98366.herokuapp.com/https://data.ontario.ca/api/3/action/datastore_search?resource_id=7fbdbb48-d074-45d9-93cb-f7de58950418&limit=500')
         .then((response) => {
             return response.json();
         })
         .then((data) => {
-            setData(data);
+            setData(data.result.records);
             setLoading(false);
         });
     }, []);
@@ -41,8 +41,9 @@ function Cards(props) {
             
         );
     } else {
+        console.log(data);
         currentData = data;
-        currentData = data[data.length - 1]        
+        currentData = data[data.length - 2]        
         totalNewSchool = currentData['new_total_school_related_cases']
         totalNewStudents = currentData['new_school_related_student_cases']
         totalNewStaff = currentData['new_school_related_staff_cases']

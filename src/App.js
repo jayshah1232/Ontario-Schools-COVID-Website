@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, Label } from "recharts";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cards from './Cards/Cards';
+import Chart from './Chart/Chart';
 import moment from 'moment';
 
 class App extends React.Component {
@@ -27,9 +28,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("https://covid-schools-data-api.herokuapp.com/")
+    fetch("https://nameless-fortress-98366.herokuapp.com/https://data.ontario.ca/api/3/action/datastore_search?resource_id=7fbdbb48-d074-45d9-93cb-f7de58950418&limit=500")
     .then(res => res.json())
-    .then(json => this.setState({ data: json, isLoading: false }))
+    .then(json => this.setState({ data: json.result.records, isLoading: false }))
   }
 
 
@@ -37,30 +38,30 @@ class App extends React.Component {
     const bgPink = {backgroundColor: 'rgb(42,49,61)'}
     let newCasesArray = [];
     let rollingAvg = [];
-    this.state.data.forEach(element => {
-      newCasesArray.push(element.new_total_school_related_cases);
-    });
+    // this.state.data.forEach(element => {
+    //   newCasesArray.push(element.new_total_school_related_cases);
+    // });
 
-    console.log(this.state.data)
+    // console.log(this.state.data)
 
-    function iterate(item, index){
-      let total = 0;
-      let movingAvg = 0;
-      let arrayIndex = newCasesArray.indexOf(item);
-      let bottomIndex = newCasesArray.indexOf(item) - 5;
-      if(index <= 4) {
-        rollingAvg.push(0);
-      }
-      else {
-        for (let i = index; i > bottomIndex; i--) {
-          total = total + newCasesArray[i];
-          movingAvg = total/5;
-          rollingAvg.push(movingAvg)
-        }
-      }
-    }
+    // function iterate(item, index){
+    //   let total = 0;
+    //   let movingAvg = 0;
+    //   let arrayIndex = newCasesArray.indexOf(item);
+    //   let bottomIndex = newCasesArray.indexOf(item) - 5;
+    //   if(index <= 4) {
+    //     rollingAvg.push(0);
+    //   }
+    //   else {
+    //     for (let i = index; i > bottomIndex; i--) {
+    //       total = total + newCasesArray[i];
+    //       movingAvg = total/5;
+    //       rollingAvg.push(movingAvg)
+    //     }
+    //   }
+    // }
 
-    newCasesArray.forEach(iterate);
+    // newCasesArray.forEach(iterate);
     
     let barGraph = " ";
 
@@ -75,6 +76,7 @@ class App extends React.Component {
     }
     else {
       console.log("finished loading")
+      console.log(this.state.data)
       barGraph = 
       <div>
         <MDBContainer>
@@ -209,6 +211,10 @@ class App extends React.Component {
           <Container id="todays-category-container">
             <Cards className="shadow-card" />
           </Container>
+
+          {/* <Container id="requested-data">
+            <Chart title="Total School Related Cases" name="Student Cases" chartKey="new_total_school_related_cases" />
+          </Container> */}
 
           <h1 id="charts-heading">Visualized Data</h1>
 
