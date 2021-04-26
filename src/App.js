@@ -46,7 +46,7 @@ class App extends React.Component {
       </div>
     }
     else {
-      updateDate = moment(this.state.data[this.state.data.length - 2].reported_date).format('D/MM/YYYY')
+      updateDate = moment(this.state.data[this.state.data.length - 2].reported_date).format('MMMM D, YYYY')
       barGraph = 
       <div>
         <MDBContainer>
