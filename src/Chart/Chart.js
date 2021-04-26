@@ -1,4 +1,4 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, Label } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Label } from "recharts";
 import { MDBContainer, MDBCard, MDBCardBody } from 'mdbreact';
 import React, { useState, useEffect } from 'react'
 import moment from 'moment';
@@ -29,7 +29,7 @@ function Chart(props) {
     if(loading) {
         graph = 
             <div className="loading">
-                <img src="Blocks-1s-200px.svg" />
+                <img src="Blocks-1s-200px.svg" alt="loading spinner" />
             </div>
     } else {
         requestedData = data;

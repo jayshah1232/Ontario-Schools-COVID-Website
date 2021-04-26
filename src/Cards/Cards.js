@@ -12,8 +12,8 @@ let currentSchoolCases = 0
 let currentStaffCases = 0
 let currentStudentCases = 0
 let currentUnspecCases = 0
-let currentSchoolsClosed = 0
-let currentSchoolsWCases = 0
+// let currentSchoolsClosed = 0
+// let currentSchoolsWCases = 0
 
 
 
@@ -36,12 +36,11 @@ function Cards(props) {
     if(loading) {
         return (
             <div className="loading">
-                <img src="Blocks-1s-200px.svg" />
+                <img src="Blocks-1s-200px.svg" alt="loading spinner"/>
             </div>
             
         );
     } else {
-        console.log(data);
         currentData = data;
         currentData = data[data.length - 2]        
         totalNewSchool = currentData['new_total_school_related_cases']
@@ -96,33 +95,6 @@ function Cards(props) {
                     <Card title="Unspecified Cases" cases={currentUnspecCases}/>
                 </MDBCardGroup>
             </div>
-            // <div id="reactCardsComponent">
-            //     <div className="heading-container">
-            //         <Card className="heading-card" id="todaysTotalCard" title="Today's New School Cases" cases={totalNewSchool}/>
-            //     </div>
-
-            
-            //     <div className="container-fluid d-flex justify-content-center" id="todayContainer">
-            //         <div className="card-group">
-            //             <Card title="Today's New Student Cases" cases={totalNewStudents}/>
-            //             <Card title="Today's New Staff Cases" cases={totalNewStaff}/>
-            //             <Card title="Today's New Unspecified Cases" cases={totalNewUnspec}/>
-            //         </div>
-            //     </div>
-
-            //     <div className="heading-container">
-            //         <Card className="heading-card" id="todaysCasesCard" title="Cumulative School Cases" cases={currentSchoolCases}/>
-            //     </div>
-
-            
-            //     <div className="container-fluid d-flex justify-content-center">
-            //         <div className="card-group">
-            //             <Card title="Cumulative Student Cases" cases={currentStudentCases}/>
-            //             <Card title="Cumulative Staff Cases" cases={currentStaffCases}/>
-            //             <Card title="Cumulative Unspecified Cases" cases={currentUnspecCases}/>
-            //         </div>
-            //     </div>
-            // </div>
         )
     }
 }

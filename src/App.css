@@ -21,6 +21,14 @@
   margin-top: 5%;
 }
 
+.date-updated {
+  margin-top: 1rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .user-select-none {
   border: black;
   border-width: 0px;

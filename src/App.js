@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
 import { Container } from 'react-bootstrap';
-import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBIcon, MDBCard, MDBCardBody, MDBCardText } from 'mdbreact';
+import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBIcon, MDBCard, MDBCardBody } from 'mdbreact';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, Label } from "recharts";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cards from './Cards/Cards';
-import Chart from './Chart/Chart';
 import moment from 'moment';
 
 class App extends React.Component {
@@ -34,39 +33,11 @@ class App extends React.Component {
   }
 
 
-  render() {
-    const bgPink = {backgroundColor: 'rgb(42,49,61)'}
-    let newCasesArray = [];
-    let rollingAvg = [];
-    // this.state.data.forEach(element => {
-    //   newCasesArray.push(element.new_total_school_related_cases);
-    // });
-
-    // console.log(this.state.data)
-
-    // function iterate(item, index){
-    //   let total = 0;
-    //   let movingAvg = 0;
-    //   let arrayIndex = newCasesArray.indexOf(item);
-    //   let bottomIndex = newCasesArray.indexOf(item) - 5;
-    //   if(index <= 4) {
-    //     rollingAvg.push(0);
-    //   }
-    //   else {
-    //     for (let i = index; i > bottomIndex; i--) {
-    //       total = total + newCasesArray[i];
-    //       movingAvg = total/5;
-    //       rollingAvg.push(movingAvg)
-    //     }
-    //   }
-    // }
-
-    // newCasesArray.forEach(iterate);
-    
+  render() {    
     let barGraph = " ";
+    let updateDate = " ";
 
     if(this.state.isLoading) {
-      console.log("loading")
       barGraph = 
       <div className="loading">
         <div className="loadingio-spinner-bars-k2zs6r7rbar"><div className="ldio-7jcdny9bopo">
@@ -75,8 +46,7 @@ class App extends React.Component {
       </div>
     }
     else {
-      console.log("finished loading")
-      console.log(this.state.data)
+      updateDate = moment(this.state.data[this.state.data.length - 2].reported_date).format('D/MM/YYYY')
       barGraph = 
       <div>
         <MDBContainer>
@@ -111,19 +81,19 @@ class App extends React.Component {
                     <Legend align="left"/>
                     <Bar
                       dataKey="new_school_related_student_cases"
-                      name="Student Cases"
+                      name="Student"
                       stackId="a"
                       fill="#8884d8"
                     />
                     <Bar
                       dataKey="new_school_related_staff_cases"
-                      name="Staff Cases"
+                      name="Staff"
                       stackId="a"
                       fill="#FF0000"
                     />
                     <Bar
                       dataKey="new_school_related_unspecified_cases"
-                      name="Unspecified Cases"
+                      name="Unspecified"
                       stackId="a"
                       fill="#82ca9d"
                     />
@@ -163,10 +133,10 @@ class App extends React.Component {
                     </YAxis>
                     <Tooltip labelFormatter={t => moment(t).format('D/M/YYYY')}/>
                     <Legend align="left"/>
-                    <Line type="monotone" dataKey="cumulative_school_related_cases" name="School Cases" stroke="#FF0000" />
-                    <Line type="monotone" dataKey="cumulative_school_related_student_cases" name="Student Cases" stroke="#8884d8" />
-                    <Line type="monotone" dataKey="cumulative_school_related_staff_cases" name="Staff Cases" stroke="#800181" />
-                    <Line type="monotone" dataKey="cumulative_school_related_unspecified_cases" name="Unspecified Cases" stroke="#82ca9d" />
+                    <Line type="monotone" dataKey="cumulative_school_related_cases" name="School" stroke="#FF0000" />
+                    <Line type="monotone" dataKey="cumulative_school_related_student_cases" name="Student" stroke="#8884d8" />
+                    <Line type="monotone" dataKey="cumulative_school_related_staff_cases" name="Staff" stroke="#800181" />
+                    <Line type="monotone" dataKey="cumulative_school_related_unspecified_cases" name="Unspecified" stroke="#82ca9d" />
                   </LineChart>
                 </ResponsiveContainer>
               </MDBCardBody>
@@ -175,8 +145,6 @@ class App extends React.Component {
         </MDBContainer>
       </div>;
     }
-
-    console.log(barGraph);
 
     return(
       <div>
@@ -208,13 +176,11 @@ class App extends React.Component {
           <br/>
           <br/>
 
+        <p className="date-updated">Last updated {updateDate}</p>
+
           <Container id="todays-category-container">
             <Cards className="shadow-card" />
           </Container>
-
-          {/* <Container id="requested-data">
-            <Chart title="Total School Related Cases" name="Student Cases" chartKey="new_total_school_related_cases" />
-          </Container> */}
 
           <h1 id="charts-heading">Visualized Data</h1>
 
