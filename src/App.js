@@ -27,10 +27,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("https://nameless-fortress-98366.herokuapp.com/https://data.ontario.ca/api/3/action/datastore_search?resource_id=7fbdbb48-d074-45d9-93cb-f7de58950418&limit=500")
+    fetch("https://nameless-fortress-98366.herokuapp.com/https://data.ontario.ca/api/3/action/datastore_search?resource_id=7e644a48-6040-4ee0-9216-1f88121b21ba")
     .then(res => res.json())
     .then(json => this.setState({ data: json.result.records, isLoading: false }))
   }
+
+  // componentDidMount() {
+  //   fetch("https://nameless-fortress-98366.herokuapp.com/https://data.ontario.ca/api/3/action/datastore_search?resource_id=7fbdbb48-d074-45d9-93cb-f7de58950418&limit=500")
+  //   .then(res => res.json())
+  //   .then(json => this.setState({ data: json.result.records, isLoading: false }))
+  // }
 
 
   render() {    

@@ -23,7 +23,7 @@ function Cards(props) {
     const [loading, setLoading] = useState(true);
     
     useEffect(()=>{
-        fetch('https://nameless-fortress-98366.herokuapp.com/https://data.ontario.ca/api/3/action/datastore_search?resource_id=7fbdbb48-d074-45d9-93cb-f7de58950418&limit=500')
+        fetch('https://nameless-fortress-98366.herokuapp.com/https://data.ontario.ca/api/3/action/datastore_search?resource_id=7e644a48-6040-4ee0-9216-1f88121b21ba')
         .then((response) => {
             return response.json();
         })
@@ -42,7 +42,7 @@ function Cards(props) {
         );
     } else {
         currentData = data;
-        currentData = data[data.length - 2]        
+        currentData = data[data.length - 1]        
         totalNewSchool = currentData['new_total_school_related_cases']
         totalNewStudents = currentData['new_school_related_student_cases']
         totalNewStaff = currentData['new_school_related_staff_cases']

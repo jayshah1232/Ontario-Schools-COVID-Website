@@ -13,13 +13,14 @@ function Chart(props) {
     
 
     useEffect(()=>{
-        fetch('https://nameless-fortress-98366.herokuapp.com/https://data.ontario.ca/api/3/action/datastore_search?resource_id=7fbdbb48-d074-45d9-93cb-f7de58950418&limit=500')
+        fetch('https://nameless-fortress-98366.herokuapp.com/https://data.ontario.ca/api/3/action/datastore_search?resource_id=7e644a48-6040-4ee0-9216-1f88121b21ba')
         .then((response) => {
             return response.json();
         })
         .then((data) => {
             setData(data.result.records);
             setLoading(false);
+            console.log(data);
         });
     }, []);
 
